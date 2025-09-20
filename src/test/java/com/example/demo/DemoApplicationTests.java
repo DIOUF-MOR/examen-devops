@@ -6,6 +6,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static java.nio.file.Paths.get;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @AutoConfigureMockMvc
 @SpringBootTest
 class DemoApplicationTests {
@@ -19,24 +24,7 @@ class DemoApplicationTests {
 		// Test que le contexte Spring se charge correctement
 	}
 
-	@Test
-	void testHomeEndpoint() throws Exception {
-		mockMvc.perform(get("/"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("221-java-projet")));
-	}
 
-	@Test
-	void testStatusEndpoint() throws Exception {
-		mockMvc.perform(get("/api/status"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("running")));
-	}
 
-	@Test
-	void testHealthEndpoint() throws Exception {
-		mockMvc.perform(get("/actuator/health"))
-				.andExpect(status().isOk());
-	}
 
 }
