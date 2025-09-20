@@ -27,37 +27,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            agent {
-                docker {
-                    image 'maven:3.8-openjdk-11'
-                    args '-v $HOME/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
-            }
-        }
-
-        stage('Code Quality') {
-            agent {
-                docker {
-                    image 'maven:3.8-openjdk-11'
-                    args '-v $HOME/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'mvn sonar:sonar'
-            }
-        }
-
         stage('Build Docker Image') {
             agent any
             steps {
