@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/votre-username/221-java-projet.git'
+                git branch: 'main', url: 'https://github.com/DIOUF-MOR/221-java-projet.git'
             }
         }
 
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        curl -X POST https://api.render.com/v1/services/YOUR_SERVICE_ID/deploys \
+                        curl -X POST https://api.render.com/v1/services/usr-d1vu4fqdbo4c73fsodt0/deploys \
                         -H "Authorization: Bearer ${RENDER_API_KEY}" \
                         -H "Content-Type: application/json"
                     '''
