@@ -8,13 +8,13 @@ pipeline {
 
     environment {
         RENDER_API_KEY = credentials('render-api-key')
-        PROJECT_NAME = '221-java-projet'
+        PROJECT_NAME = 'examen-devops'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/DIOUF-MOR/221-java-projet.git'
+                git branch: 'main', url: 'https://github.com/DIOUF-MOR/examen-devops.git'
             }
         }
 
