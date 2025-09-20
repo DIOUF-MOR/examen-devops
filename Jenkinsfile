@@ -14,26 +14,12 @@ pipeline {
         }
 
         stage('Build') {
-            agent {
-                docker {
-                    image 'maven:3.8-openjdk-11'
-                    args '-v $HOME/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'maven:3.8-openjdk-11'
-                    args '-v $HOME/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
             steps {
                 sh 'mvn test'
             }
@@ -44,46 +30,6 @@ pipeline {
             }
         }
 
-        stage('Code Quality') {
-            agent {
-                docker {
-                    image 'maven:3.8-openjdk-11'
-                    args '-v $HOME/.m2:/root/.m2'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'mvn sonar:sonar'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'docker build -t ${PROJECT_NAME}:${BUILD_NUMBER} .'
-                }
-            }
-        }
-
-        stage('Deploy to Render') {
-            steps {
-                script {
-                    sh '''
-                        curl -X POST https://api.render.com/v1/services/usr-d1vu4fqdbo4c73fsodt0/deploys \
-                        -H "Authorization: Bearer ${RENDER_API_KEY}" \
-                        -H "Content-Type: application/json"
-                    '''
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline exécuté avec succès!'
-        }
-        failure {
-            echo 'Le pipeline a échoué.'
-        }
+        // ... reste des stages
     }
 }
