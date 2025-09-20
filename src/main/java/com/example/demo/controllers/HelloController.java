@@ -17,7 +17,9 @@ class HelloController {
         return "Application is running successfully!";
     }
 
+
     @GetMapping("/api/status")
+
     public String jen() {
         return "Application is running successfully!";
     }
