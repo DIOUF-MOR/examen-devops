@@ -11,6 +11,7 @@ class HelloController {
         return "Bienvenue sur 221-java-projet! 🚀";
     }
 
+
     @GetMapping("/api/status")
     public String status() {
         return "Application is running successfully!";
