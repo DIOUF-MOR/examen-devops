@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.8'
-        jdk 'JDK-11'
-    }
-
     environment {
         RENDER_API_KEY = credentials('render-api-key')
         PROJECT_NAME = 'examen-devops'
@@ -19,13 +14,26 @@ pipeline {
         }
 
         stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3.8-openjdk-11'
+                    args '-v $HOME/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
 
-
         stage('Test') {
+            agent {
+                docker {
+                    image 'maven:3.8-openjdk-11'
+                    args '-v $HOME/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'mvn test'
             }
@@ -37,6 +45,13 @@ pipeline {
         }
 
         stage('Code Quality') {
+            agent {
+                docker {
+                    image 'maven:3.8-openjdk-11'
+                    args '-v $HOME/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'mvn sonar:sonar'
             }
@@ -71,5 +86,4 @@ pipeline {
             echo 'Le pipeline a échoué.'
         }
     }
-
 }
