@@ -10,6 +10,7 @@ pipeline {
         PROJECT_NAME = 'examen-devops'
     }
 
+
     stages {
         stage('Checkout') {
             steps {
