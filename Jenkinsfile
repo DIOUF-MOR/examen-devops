@@ -17,13 +17,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/DIOUF-MOR/examen-devops.git'
             }
         }
-/*
+
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
-        */
+
 
         stage('Test') {
             steps {
